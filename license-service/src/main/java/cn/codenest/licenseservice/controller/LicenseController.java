@@ -1,6 +1,9 @@
 package cn.codenest.licenseservice.controller;
 
+import cn.codenest.licenseservice.config.ServiceConfig;
 import cn.codenest.licenseservice.po.License;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/v1/organizations/")
 public class LicenseController {
 
+    @Autowired
+    ServiceConfig config;
+
     @RequestMapping(value = "/{licenseid}/licenses", method = RequestMethod.GET)
-    public License getLicense() {
+    public License getLicense(@PathVariable String licenseid) {
         License license = new License();
-        license.setId(1);
-        license.setLicenseType("Teleco");
-        license.setLicenseType("Seat");
-        license.setOrganizationId("TestOrg");
+        if (licenseid.equals("autocontrol")) {
+            license.setId(licenseid);
+            license.setLicenseType("Teleco");
+            license.setVal(config.getAutoLicense());
+        } else {
+            license.setId(licenseid);
+            license.setLicenseType("Teleco");
+            license.setVal(config.getMannulLicense());
+        }
+
         return license;
     }
 }

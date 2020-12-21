@@ -11,8 +11,8 @@ import lombok.Data;
  */
 @Data
 public class License {
-    Integer id;
+    String id;
     String productName;
     String licenseType;
-    String organizationId;
+    String val;
 }

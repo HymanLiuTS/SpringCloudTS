@@ -1,10 +1,5 @@
 server:
-  port: 8080
-
-spring:
-  application:
-    name: license-service
-
+  port: 8090
 #通过调整日志的级别，打印map的url信息
 logging:
   level:
