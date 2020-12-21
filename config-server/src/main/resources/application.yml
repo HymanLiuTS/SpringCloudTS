@@ -3,10 +3,22 @@ server:
 spring:
   application:
     name: config-server
-  profiles:
-    active: native
   cloud:
     config:
       server:
-        native:
-          search-locations: file:///D:/CET/licensingservice,file:///D:/CET/accountservice
+        git:
+          uri: https://github.com/HymanLiuTS/SpringCloudTS.git
+          search-paths: licenseserviceconfig,accountserviceconfig
+          force-pull: true
+#          username: xxxxxx
+#          password: xxxxxx
+# 以下注释部分是使用本地文件的方式提供配置
+#  profiles:
+#    active: native
+#  cloud:
+#    config:
+#      server:
+#        native:
+           # 访问接口时会把所有的配置文件的内容获取出来
+
+#          search-locations: file:///D:/CET/licensingservice,file:///D:/CET/accountservice
