@@ -1,0 +1,15 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  client:
+    #因为服务本就是Eureeka，不需要将自己注册到Euraka
+    registerWithEureka: false
+    #不会在本地缓存各个服务的注册表信息
+    fetch-registry: false
+    #eureka在启动后5分钟才会通知各个服务实例，它重启成功了，而是等待各个服务实例自己主动注册
+    server:
+      waitTimeInMsWhenSyncEmpty: 5
