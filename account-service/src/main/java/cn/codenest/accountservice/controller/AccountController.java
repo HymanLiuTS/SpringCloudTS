@@ -1,9 +1,8 @@
 package cn.codenest.accountservice.controller;
 
-import cn.codenest.accountservice.client.AccountFeignClient;
-import cn.codenest.accountservice.client.LicenseDistoryClient;
 import cn.codenest.accountservice.config.ServiceConfig;
 import cn.codenest.accountservice.po.License;
+import cn.codenest.accountservice.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +24,9 @@ public class AccountController {
     @Autowired
     ServiceConfig config;
 
-    @Autowired
-    LicenseDistoryClient client;
 
     @Autowired
-    AccountFeignClient accountFeignClient;
+    AccountService accountService;
 
     @RequestMapping(value = "/{accountid}/phone", method = RequestMethod.GET)
     public String getPhone(@PathVariable String accountid) {
@@ -38,8 +35,8 @@ public class AccountController {
 
     @RequestMapping(value = "/{accountid}/license", method = RequestMethod.GET)
     public License getLicense(@PathVariable String accountid) {
-        //return client.getLicenseByDiscoveryClient();
-        //return client.getLicenseByRibbonAndDiscoveryClient();
-        return accountFeignClient.getLicense("autocontrol");
+        //return accountService.getLicenseByDiscoveryClient();
+        //return accountService.getLicenseByRibbonAndDiscoveryClient();
+        return accountService.getLicense();
     }
 }
