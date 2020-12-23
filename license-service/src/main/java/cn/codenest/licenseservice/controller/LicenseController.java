@@ -25,6 +25,7 @@ public class LicenseController {
 
     @RequestMapping(value = "/{licenseid}/licenses", method = RequestMethod.GET)
     public License getLicense(@PathVariable String licenseid) {
+        System.out.println("getLicense");
         License license = new License();
         if (licenseid.equals("autocontrol")) {
             license.setId(licenseid);
