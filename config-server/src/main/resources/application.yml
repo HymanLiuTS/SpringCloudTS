@@ -9,7 +9,7 @@ spring:
       server:
         git:
           uri: https://github.com/HymanLiuTS/SpringCloudTS.git
-          search-paths: licenseserviceconfig,accountserviceconfig,zuulserverconfig
+          search-paths: zuulserverconfig,licenseserviceconfig,accountserviceconfig
           force-pull: true
 #          username: xxxxxx
 #          password: xxxxxx
