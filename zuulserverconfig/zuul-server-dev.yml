@@ -11,7 +11,7 @@ zuul:
     #通过手动方式映射动态路由
     account-service: /account/**
     licensestatic:
-      path: /license-static/**
+      path: /license-static1/**
       #手动映射静态路由，这里无法使用ribbion进行负载均衡
       #url: http://127.0.0.1:8090/
       #定义serviceid，后面ribbon使用这个serviceid，可以进行负载均衡
