@@ -24,10 +24,22 @@ zuul:
   routes:
     #通过手动方式映射动态路由
     account-service: /account/**
-    #手动映射静态路由
     licensestatic:
       path: /license-static/**
-      url: http://127.0.0.1:8090/
+      #手动映射静态路由，这里无法使用ribbion进行负载均衡
+      #url: http://127.0.0.1:8090/
+      #定义serviceid，后面ribbon使用这个serviceid，可以进行负载均衡
+      serviceId: license-static
+
+#设置静态路由的负载均衡，需要关闭eureka
+ribbon:
+  eureka:
+    enabled: false
+
+#使用ribbon进行负载均衡
+license-static:
+  ribbon:
+    listOfServers: http://127.0.0.1:8090/
 
 management:
   endpoints:
