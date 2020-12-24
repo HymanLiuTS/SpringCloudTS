@@ -1,21 +1,6 @@
-spring:
-  application:
-    name: zuul-server
-server:
-  port: 8086
-eureka:
-  instance:
-    #将服务的ip地址而非服务所在的主机名注册到eureka
-    preferIpAddress: true
-  client:
-    #通过euraka注册服务
-    registerWithEureka: true
-    #在服务中构建其他服务实例的地址缓存，从而防止每次都要向eureka询问ip地址
-    #每隔30秒服务会更新一次缓存
-    fetch-registry: true
-    service-url:
-      defaultZone: http://127.0.0.1:8088/eureka/
-
+license:
+  autocontrol: autocontrol123456
+  mannulcontrol: mannulcontrol123456
 zuul:
   #添加前缀，访问的路由前面必须加上改前缀
   prefix: /api
@@ -30,34 +15,13 @@ zuul:
       #url: http://127.0.0.1:8090/
       #定义serviceid，后面ribbon使用这个serviceid，可以进行负载均衡
       serviceId: license-static
-
 #设置静态路由的负载均衡，需要关闭eureka，关闭后还是可以通过eruka进行自动和手动路由的设置，
 #但是ribbon不会再缓存各个服务的地址，加大eruka压力
 ribbon:
   eureka:
     enabled: true
-
 #使用ribbon进行负载均衡
 license-static:
   ribbon:
-
     listOfServers: http://127.0.0.1:8090/
 
-management:
-  endpoints:
-    web:
-      exposure:
-        # 这里用* 代表暴露所有端点只是为了观察效果，实际中按照需进行端点暴露
-        include: routes
-  endpoint:
-    health:
-      # 详细信息显示给所有用户。
-      show-details: always
-  health:
-    status:
-      http-mapping:
-        # 自定义健康检查返回状态码对应的 http 状态码
-        FATAL:  503
-license:
-  autocontrol: autocontrol123456
-  mannulcontrol: mannulcontrol123456
