@@ -1,5 +1,3 @@
-server:
-  port: 8086
 zuultest:
   autocontrol: autocontrol123456-product
   mannulcontrol: mannulcontrol123456-product
