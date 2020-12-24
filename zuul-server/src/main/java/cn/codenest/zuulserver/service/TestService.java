@@ -1,4 +1,4 @@
-package cn.codenest.zuulserver;
+package cn.codenest.zuulserver.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestService {
 
-    @Value("${license.autocontrol}")
+    @Value("${zuultest.autocontrol}")
     private String autoLicense;
 
 }
