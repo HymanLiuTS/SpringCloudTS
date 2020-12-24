@@ -10,7 +10,7 @@ spring:
         git:
           uri: https://github.com/HymanLiuTS/SpringCloudTS.git
           search-paths: zuulserverconfig,licenseserviceconfig,accountserviceconfig
-          force-pull: true
+          #force-pull: true
 #          username: xxxxxx
 #          password: xxxxxx
 # 以下注释部分是使用本地文件的方式提供配置

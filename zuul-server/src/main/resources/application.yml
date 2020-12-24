@@ -1,9 +1,21 @@
+#通过调整日志的级别，打印map的url信息
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            mvc:
+              method:
+                annotation:
+                  RequestMappingHandlerMapping: trace
+
 management:
   endpoints:
     web:
       exposure:
         # 这里用* 代表暴露所有端点只是为了观察效果，实际中按照需进行端点暴露
-        include: routes
+        include: "*"
   endpoint:
     health:
       # 详细信息显示给所有用户。

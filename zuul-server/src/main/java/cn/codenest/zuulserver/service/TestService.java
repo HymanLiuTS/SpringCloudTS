@@ -14,7 +14,12 @@ import org.springframework.stereotype.Service;
 @Component
 public class TestService {
 
-    @Value("${zuultest.autocontrol}")
+    //@Value("${zuultest.autocontrol}")
     private String autoLicense;
+
+    public String getAutoLicense() {
+        return autoLicense;
+    }
+
 
 }

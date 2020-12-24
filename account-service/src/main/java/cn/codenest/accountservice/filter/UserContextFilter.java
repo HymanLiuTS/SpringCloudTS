@@ -17,11 +17,22 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class UserContextFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         UserContextHolder.getContext().setCorrelationId(httpServletRequest.getHeader(UserContext.CORRELATION_ID));
         System.out.println("UserContextFilter:" + UserContextHolder.getContext().getCorrelationId());
         chain.doFilter(httpServletRequest, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

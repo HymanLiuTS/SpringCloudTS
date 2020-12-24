@@ -4,7 +4,7 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8089
-      profile: dev
+      # profile: dev
       enabled: true
 #label从git方式的配置服务器获取配置时用到，表示git的分支
       label: main
