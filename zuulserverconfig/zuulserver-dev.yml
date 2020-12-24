@@ -58,3 +58,6 @@ management:
       http-mapping:
         # 自定义健康检查返回状态码对应的 http 状态码
         FATAL:  503
+license:
+  autocontrol: autocontrol123456
+  mannulcontrol: mannulcontrol123456

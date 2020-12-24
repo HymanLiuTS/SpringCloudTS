@@ -14,4 +14,20 @@ spring:
 #label从git方式的配置服务器获取配置时用到，表示git的分支
       label: main
 
+server:
+  port: 8086
+
+eureka:
+  instance:
+    #将服务的ip地址而非服务所在的主机名注册到eureka
+    preferIpAddress: true
+  client:
+    #通过euraka注册服务
+    registerWithEureka: true
+    #在服务中构建其他服务实例的地址缓存，从而防止每次都要向eureka询问ip地址
+    #每隔30秒服务会更新一次缓存
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/
+
 
