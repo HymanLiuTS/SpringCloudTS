@@ -3,19 +3,11 @@ spring:
     name: zuul-server
   cloud:
     config:
-      #采用url形式访问
-      #uri: http://127.0.0.1:8089
+      uri: http://127.0.0.1:8089
       profile: dev
       enabled: true
-      #采用服务发现访问
-      discovery:
-        enabled: true
-        service-id: config-server
 #label从git方式的配置服务器获取配置时用到，表示git的分支
       label: main
-
-server:
-  port: 8086
 
 eureka:
   instance:

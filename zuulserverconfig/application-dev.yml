@@ -1,27 +1,3 @@
 license:
-  autocontrol: autocontrol123456
-  mannulcontrol: mannulcontrol123456
-zuul:
-  #添加前缀，访问的路由前面必须加上改前缀
-  prefix: /api
-  #忽略自动方式映射的动态路由，如果忽略全部，使用'*'
-  ignored-services: 'license-service'
-  routes:
-    #通过手动方式映射动态路由
-    account-service: /account/**
-    licensestatic:
-      path: /license-static/**
-      #手动映射静态路由，这里无法使用ribbion进行负载均衡
-      #url: http://127.0.0.1:8090/
-      #定义serviceid，后面ribbon使用这个serviceid，可以进行负载均衡
-      serviceId: license-static
-#设置静态路由的负载均衡，需要关闭eureka，关闭后还是可以通过eruka进行自动和手动路由的设置，
-#但是ribbon不会再缓存各个服务的地址，加大eruka压力
-ribbon:
-  eureka:
-    enabled: true
-#使用ribbon进行负载均衡
-license-static:
-  ribbon:
-    listOfServers: http://127.0.0.1:8090/
-
+  autocontrol: autocontrol123456-dev
+  mannulcontrol: mannulcontrol123456-dev
