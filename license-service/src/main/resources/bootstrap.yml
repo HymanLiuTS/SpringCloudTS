@@ -7,7 +7,7 @@ spring:
       profile: dev
       enabled: true
 #label从git方式的配置服务器获取配置时用到，表示git的分支
-#      label: main
+      label: main
 
 eureka:
   instance:
