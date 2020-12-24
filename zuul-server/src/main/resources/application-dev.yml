@@ -45,6 +45,24 @@ license-static:
   ribbon:
     listOfServers: http://127.0.0.1:8090/
 
+#配置通过Zuul运行的服务的Hystrix超时2.5s，如果设置某个服务的，可以将下面的default换成对应的服务名称
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2500
+    account-service:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 7000
+
+account-service:
+  ribbon:
+    ReadTimeout: 7000
+
 management:
   endpoints:
     web:
