@@ -9,8 +9,6 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @SpringBootApplication
 public class ZuulServerApplication {
 
-    @Value("${license.autocontrol}")
-    private String autoLicense;
 
     public static void main(String[] args) {
         SpringApplication.run(ZuulServerApplication.class, args);
