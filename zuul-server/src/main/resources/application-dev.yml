@@ -43,7 +43,6 @@ ribbon:
 #使用ribbon进行负载均衡
 license-static:
   ribbon:
-
     listOfServers: http://127.0.0.1:8090/
 
 management:
