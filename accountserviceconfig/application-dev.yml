@@ -1,2 +1,8 @@
 account:
     phone: 135xxx48950-dev
+eureka:
+  instance:
+    #将服务的ip地址而非服务所在的主机名注册到eureka
+    preferIpAddress: true
+    metadata-map:
+      lancher: 1

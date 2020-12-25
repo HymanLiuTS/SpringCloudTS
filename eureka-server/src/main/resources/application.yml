@@ -13,3 +13,5 @@ eureka:
     #eureka在启动后5分钟才会通知各个服务实例，它重启成功了，而是等待各个服务实例自己主动注册
     server:
       waitTimeInMsWhenSyncEmpty: 5
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/

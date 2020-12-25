@@ -25,4 +25,12 @@ public class FilterUtiles {
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.addZuulRequestHeader(CORRELATION_ID, relationId);
     }
+
+    public static String getServiceId() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        if (ctx.getRequest().getHeader(CORRELATION_ID) != null) {
+            return ctx.getRequest().getHeader(CORRELATION_ID);
+        }
+        return ctx.getZuulRequestHeaders().get(CORRELATION_ID);
+    }
 }
