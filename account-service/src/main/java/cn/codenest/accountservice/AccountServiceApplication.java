@@ -1,5 +1,6 @@
 package cn.codenest.accountservice;
 
+import cn.codenest.accountservice.Interceptor.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -8,6 +9,9 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
+import java.util.List;
 
 //这个注解在使用feign调用其他服务时用，使用集成ribbon的DiscoveryClient和DiscoveryClient无需注解
 @EnableFeignClients
@@ -22,7 +26,15 @@ public class AccountServiceApplication {
     @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate(){
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        List interceptors = restTemplate.getInterceptors();
+        if (interceptors == null) {
+            restTemplate.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
+        } else {
+            interceptors.add(new UserContextInterceptor());
+            restTemplate.setInterceptors(interceptors);
+        }
+        return restTemplate;
     }
 
     public static void main(String[] args) {

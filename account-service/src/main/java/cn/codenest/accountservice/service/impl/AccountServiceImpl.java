@@ -45,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
         return client.getLicenseByDiscoveryClient();
     }
 
+    @HystrixCommand
     @Override
     public License getLicenseByRibbonAndDiscoveryClient() {
         return client.getLicenseByRibbonAndDiscoveryClient();

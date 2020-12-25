@@ -38,9 +38,9 @@ public class AccountController {
 
     @RequestMapping(value = "/{accountid}/license", method = RequestMethod.GET)
     public License getLicense(@PathVariable String accountid) {
+        System.out.println("AccountController:" + UserContextHolder.getContext().getCorrelationId());
         //return accountService.getLicenseByDiscoveryClient();
         //return accountService.getLicenseByRibbonAndDiscoveryClient();
-        System.out.println("AccountController:" + UserContextHolder.getContext().getCorrelationId());
         return accountService.getLicense();
     }
 }
