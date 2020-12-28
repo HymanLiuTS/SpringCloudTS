@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: auth-service
+  cloud:
+    config:
+      uri: http://127.0.0.1:8089
+      profile: dev
+      enabled: true
+      #label从git方式的配置服务器获取配置时用到，表示git的分支
+      label: main
+
+eureka:
+  instance:
+    #将服务的ip地址而非服务所在的主机名注册到eureka
+    preferIpAddress: true
+  client:
+    #通过euraka注册服务
+    registerWithEureka: true
+    #在服务中构建其他服务实例的地址缓存，从而防止每次都要向eureka询问ip地址
+    #每隔30秒服务会更新一次缓存
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/
+
+server:
+  port: 8084
+
+#通过调整日志的级别，打印map的url信息
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            mvc:
+              method:
+                annotation:
+                  RequestMappingHandlerMapping: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 这里用* 代表暴露所有端点只是为了观察效果，实际中按照需进行端点暴露
+        include: "*"
+  endpoint:
+    health:
+      # 详细信息显示给所有用户。
+      show-details: always
+  health:
+    status:
+      http-mapping:
+        # 自定义健康检查返回状态码对应的 http 状态码
+        FATAL:  503
+
+

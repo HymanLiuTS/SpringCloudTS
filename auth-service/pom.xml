@@ -8,10 +8,10 @@
         <version>2.0.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.codenest</groupId>
-    <artifactId>zuul-server</artifactId>
+    <groupId>cn.codenst</groupId>
+    <artifactId>auth-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>zuul-server</name>
+    <name>auth-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -43,14 +43,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <scope>provided</scope>
@@ -60,9 +52,16 @@
             <artifactId>spring-cloud-config-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.jmnarloch</groupId>
-            <artifactId>ribbon-discovery-filter-spring-cloud-starter</artifactId>
-            <version>2.1.0</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
         <!-- lombok start-->
         <dependency>
@@ -72,22 +71,6 @@
         </dependency>
         <!-- lombok end-->
     </dependencies>
-    <repositories>
-        <repository>
-            <id>maven-ali</id>
-            <url>http://maven.aliyun.com/nexus/content/groups/public//</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-
-    </repositories>
-
 
     <build>
         <plugins>
