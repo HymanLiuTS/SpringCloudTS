@@ -42,6 +42,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        //这是将所有获取token和检查token的接口设置为全部不需要验权
         security
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")

@@ -23,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @version: $
  */
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -45,6 +44,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //todo 一旦使用@EnableResourceServer，ResourceServerConfig的http配置会将WebSecurityConfigurer中http的配置覆盖掉
         http.formLogin()
                 .loginPage("/auth/oauth/token")
                 .successHandler(myAuthenticationSuccessHandler)
