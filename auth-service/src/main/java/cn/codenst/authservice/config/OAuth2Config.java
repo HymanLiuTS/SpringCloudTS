@@ -36,8 +36,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .withClient("clientId")
                 .secret(new BCryptPasswordEncoder().encode("clientSecret"))
                 .authorizedGrantTypes("password")
-                .scopes("all")
-                .redirectUris("http://www.baidu.com");
+                .scopes("all");
     }
 
     @Override

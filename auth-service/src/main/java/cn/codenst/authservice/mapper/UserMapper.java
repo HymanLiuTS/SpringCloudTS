@@ -31,7 +31,7 @@ public class UserMapper {
         lisi.setId(2L);
         lisi.setUsername("lisi");
         lisi.setPassword(new BCryptPasswordEncoder().encode("123456"));
-        lisi.setRoles("ROLE_USER");
+        lisi.setRoles("ROLE_ADMIN");
         users.put("lisi", lisi);
     }
 

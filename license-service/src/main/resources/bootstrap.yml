@@ -20,6 +20,6 @@ eureka:
     #每隔30秒服务会更新一次缓存
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8088/eureka/
+      defaultZone: http://127.0.0.1:18088/eureka/
 
 

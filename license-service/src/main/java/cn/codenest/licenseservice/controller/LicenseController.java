@@ -39,4 +39,21 @@ public class LicenseController {
 
         return license;
     }
+
+    @RequestMapping(value = "/{licenseid}/licenses", method = RequestMethod.DELETE)
+    public License delLicense(@PathVariable String licenseid) {
+        System.out.println("getLicense");
+        License license = new License();
+        if (licenseid.equals("autocontrol")) {
+            license.setId(licenseid);
+            license.setLicenseType("Teleco");
+            license.setVal(config.getAutoLicense());
+        } else {
+            license.setId(licenseid);
+            license.setLicenseType("Teleco");
+            license.setVal(config.getMannulLicense());
+        }
+
+        return license;
+    }
 }
