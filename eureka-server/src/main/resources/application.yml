@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 18088
 spring:
   application:
     name: eureka-server
@@ -14,4 +14,4 @@ eureka:
     server:
       waitTimeInMsWhenSyncEmpty: 5
     service-url:
-      defaultZone: http://127.0.0.1:8088/eureka/
+      defaultZone: http://127.0.0.1:18088/eureka/

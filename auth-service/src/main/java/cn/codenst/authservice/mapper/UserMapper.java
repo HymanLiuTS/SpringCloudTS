@@ -1,6 +1,9 @@
 package cn.codenst.authservice.mapper;
 
 import cn.codenst.authservice.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,14 +22,16 @@ public class UserMapper {
     public UserMapper() {
         users = new HashMap<>();
         User zhangsan = new User();
-        zhangsan.setId(1);
+        zhangsan.setId(1L);
         zhangsan.setUsername("zhangsan");
-        zhangsan.setPassword("123456");
+        zhangsan.setPassword(new BCryptPasswordEncoder().encode("123456"));
+        zhangsan.setRoles("ROLE_USER");
         users.put("zhangsan", zhangsan);
         User lisi = new User();
-        lisi.setId(2);
+        lisi.setId(2L);
         lisi.setUsername("lisi");
-        lisi.setPassword("123456");
+        lisi.setPassword(new BCryptPasswordEncoder().encode("123456"));
+        lisi.setRoles("ROLE_USER");
         users.put("lisi", lisi);
     }
 

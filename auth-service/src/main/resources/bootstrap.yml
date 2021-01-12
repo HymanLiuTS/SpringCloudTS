@@ -20,7 +20,7 @@ eureka:
     #每隔30秒服务会更新一次缓存
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8088/eureka/
+      defaultZone: http://127.0.0.1:18088/eureka/
 
 server:
   port: 8084
@@ -28,14 +28,7 @@ server:
 #通过调整日志的级别，打印map的url信息
 logging:
   level:
-    org:
-      springframework:
-        web:
-          servlet:
-            mvc:
-              method:
-                annotation:
-                  RequestMappingHandlerMapping: trace
+    org.springframework: debug
 
 management:
   endpoints:

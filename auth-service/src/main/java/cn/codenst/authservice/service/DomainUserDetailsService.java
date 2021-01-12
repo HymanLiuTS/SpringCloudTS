@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,6 @@ public class DomainUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user =  userMapper.findByUserName(username);
-        List<? extends GrantedAuthority> authorities = new ArrayList();
-        return  new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
+        return  user;
     }
 }
