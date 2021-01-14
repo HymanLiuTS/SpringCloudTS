@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,6 @@ import java.util.HashMap;
  * @version: $
  */
 @Slf4j
-@Component
 public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Autowired
@@ -42,6 +42,9 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
     @Qualifier("defaultAuthorizationServerTokenServices")
     @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
+
+    @Autowired
+    private DefaultTokenServices jwttokenservice;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

@@ -1,12 +1,10 @@
 package cn.codenst.authservice.config;
 
-import cn.codenst.authservice.handler.MyAuthenticationFailureHandler;
-import cn.codenst.authservice.handler.MyAuthenticationSuccessHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 /**
  * @author ：Hyman
@@ -15,28 +13,25 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * @modified By：
  * @version: $
  */
-@Configuration
 @EnableResourceServer
+@Configuration
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Autowired
-    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+    public static final String RESOURCE_ID = "authorizationserver";
 
-    @Autowired
-    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        super.configure(resources);
+        resources.resourceId(RESOURCE_ID);
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .loginPage("/auth/oauth/token")
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(myAuthenticationFailureHandler);
-
-        //todo 一旦使用@EnableResourceServer，这里的http配置会将WebSecurityConfigurer中http的配置覆盖掉
-        http.authorizeRequests()
-                .antMatchers("/login","/auth/oauth/token", "/authentication/form").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable();
+        //只有/me端点作为资源服务器的资源,否则oauth会把所有的端点当成oauth资源服务资源
+        http.requestMatchers().antMatchers("/user/me")
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated();
     }
 
 }

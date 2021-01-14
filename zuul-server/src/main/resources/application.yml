@@ -45,3 +45,8 @@ hystrix:
 account-service:
   ribbon:
     ReadTimeout: 7000
+
+zuul:
+  #配置过滤头部的黑名单，默认情况下会过滤Cookie,Set-Cookie,Authorization，
+  #显式配置出来之后不会过滤Authorization
+  sensitive-headers: Cookie,Set-Cookie

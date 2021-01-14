@@ -18,7 +18,6 @@ import java.io.IOException;
  * @version: $
  */
 @Slf4j
-@Component
 public class MyAuthenticationFailureHandler  implements AuthenticationFailureHandler {
 
     @Override
