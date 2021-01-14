@@ -81,6 +81,7 @@ public class AuthorizationServiceConfig extends AuthorizationServerConfigurerAda
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        //todo 使用jwtTokenEnhancer可以自定义拓展字段
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtTokenEnhancer, jwtAccessTokenConverter));
 
