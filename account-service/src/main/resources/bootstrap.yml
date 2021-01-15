@@ -13,6 +13,22 @@ spring:
         service-id: config-server
 #label从git方式的配置服务器获取配置时用到，表示git的分支
       label: main
+    stream:
+      bindings:
+        greetingChannel:
+          #这个是交换机名称+
+          destination: orgChangeTopic
+          content-type: application/json
+          consumer:
+            #消费重试的次数，如果在处理消息的过程中出现异常，重试的次数
+            max-attempts: 1
+            #手动确认消息模式
+            acknowledge-mode: manual
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   instance:

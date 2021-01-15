@@ -1,5 +1,6 @@
 package cn.codenest.licenseservice.controller;
 
+import cn.codenest.licenseservice.component.SimpleSourceBean;
 import cn.codenest.licenseservice.config.ServiceConfig;
 import cn.codenest.licenseservice.po.License;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 /**
  * @author ：Hyman
@@ -23,6 +26,9 @@ public class LicenseController {
     @Autowired
     ServiceConfig config;
 
+    @Autowired
+    SimpleSourceBean simpleSourceBean;
+
     @RequestMapping(value = "/{licenseid}/licenses", method = RequestMethod.GET)
     public License getLicense(@PathVariable String licenseid) {
         System.out.println("getLicense");
@@ -36,7 +42,7 @@ public class LicenseController {
             license.setLicenseType("Teleco");
             license.setVal(config.getMannulLicense());
         }
-
+        simpleSourceBean.publishOrgChange("Save", UUID.randomUUID().toString());
         return license;
     }
 

@@ -8,6 +8,18 @@ spring:
       enabled: true
 #label从git方式的配置服务器获取配置时用到，表示git的分支
       label: main
+    stream:
+      bindings:
+        greetingChannel:
+          #这个是交换机名称
+          destination: orgChangeTopic
+          content-type: application/json
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
 
 eureka:
   instance:

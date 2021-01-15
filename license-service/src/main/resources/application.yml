@@ -32,3 +32,4 @@ security:
   oauth2:
     resource:
       user-info-uri: http://localhost:8084/user/me
+
