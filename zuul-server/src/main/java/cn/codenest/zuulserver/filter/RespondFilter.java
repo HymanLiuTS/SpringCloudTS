@@ -3,8 +3,11 @@ package cn.codenest.zuulserver.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
+//import org.springframework.cloud.sleuth.Tracer;
+
 
 /**
  * @author ：Hyman
@@ -18,6 +21,9 @@ public class RespondFilter extends ZuulFilter {
 
     private static final int FILTER_ORDER = 1;
     private static final boolean SHOULD_FILTER = true;
+
+    @Autowired
+    //Tracer tracer;
 
     @Override
     public String filterType() {
@@ -53,6 +59,7 @@ public class RespondFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         System.out.println("处理完成响应:" + FilterUtiles.getRelationId());
         ctx.getResponse().addHeader(FilterUtiles.CORRELATION_ID,FilterUtiles.getRelationId());
+        //ctx.getResponse().addHeader("tmx-correlation-id",tracer.getCurrentSpan().traceIdString());
         return null;
     }
 }

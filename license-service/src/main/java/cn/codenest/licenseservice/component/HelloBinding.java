@@ -11,6 +11,6 @@ import org.springframework.messaging.MessageChannel;
  * @date : 2021-01-15 10:33
  **/
 public interface HelloBinding {
-    @Output("greetingChannel")
+    @Output("greetingExchange")
     MessageChannel greeting();
 }

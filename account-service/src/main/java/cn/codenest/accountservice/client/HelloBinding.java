@@ -11,7 +11,7 @@ import org.springframework.messaging.SubscribableChannel;
  * @date : 2021-01-15 11:09
  **/
 public interface HelloBinding {
-    String GREETING = "greetingChannel";
+    String GREETING = "greetingExchange";
 
     @Input(GREETING)
     SubscribableChannel greeting();
