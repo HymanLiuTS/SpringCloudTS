@@ -1,4 +1,11 @@
 spring:
+  zipkin:
+    base-url: http://172.17.6.85:9411
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
   application:
     name: zuul-server
   cloud:

@@ -1,5 +1,8 @@
 package cn.codenest.licenseservice.controller;
 
+import brave.Span;
+
+import brave.Tracer;
 import cn.codenest.licenseservice.component.SimpleSourceBean;
 import cn.codenest.licenseservice.config.ServiceConfig;
 import cn.codenest.licenseservice.po.License;
@@ -27,22 +30,29 @@ public class LicenseController {
     ServiceConfig config;
 
     @Autowired
+    private Tracer tracer;
+
+    @Autowired
     SimpleSourceBean simpleSourceBean;
 
     @RequestMapping(value = "/{licenseid}/licenses", method = RequestMethod.GET)
     public License getLicense(@PathVariable String licenseid) {
         System.out.println("getLicense");
         License license = new License();
-        if (licenseid.equals("autocontrol")) {
-            license.setId(licenseid);
-            license.setLicenseType("Teleco");
-            license.setVal(config.getAutoLicense());
-        } else {
-            license.setId(licenseid);
-            license.setLicenseType("Teleco");
-            license.setVal(config.getMannulLicense());
+        try {
+            if (licenseid.equals("autocontrol")) {
+                license.setId(licenseid);
+                license.setLicenseType("Teleco");
+                license.setVal(config.getAutoLicense());
+            } else {
+                license.setId(licenseid);
+                license.setLicenseType("Teleco");
+                license.setVal(config.getMannulLicense());
+            }
+            simpleSourceBean.publishOrgChange("Save", UUID.randomUUID().toString());
+        } finally {
+
         }
-        simpleSourceBean.publishOrgChange("Save", UUID.randomUUID().toString());
         return license;
     }
 
