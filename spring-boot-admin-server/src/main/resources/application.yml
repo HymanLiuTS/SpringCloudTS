@@ -1,2 +1,52 @@
 server:
-  port: 6666
+  port: 6566
+spring:
+  profiles:
+    active: docker
+  application:
+    name: admin-server
+  security:
+    user:
+      name: "admin"
+      password: "adminadmin"
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: "admin"
+      user.password: "adminadmin"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+---
+# dev环境
+spring:
+  profiles: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:18088/eureka/
+
+
+---
+# docker环境
+spring:
+  profiles: docker
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:18088/eureka/
+
