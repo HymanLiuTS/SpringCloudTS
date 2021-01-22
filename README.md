@@ -7,5 +7,7 @@ SpringCloud搭建的微服务框架，包括配置中心、注册中心、断路
 * account-service:8085
 * license-service: 8090
 * zipkin-server: 8080
+* zuul-server: 8086
+* spring-cloud-gateway: 8087
 * spring-boot-admin-server:6566
 

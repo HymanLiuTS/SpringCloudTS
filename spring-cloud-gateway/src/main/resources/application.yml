@@ -1,0 +1,15 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+      #id是定义的唯一id
+      - id: proxy-1
+        #代理的uri，注意这里不能代理百度，有可能百度做了限制，无法代理成功
+        uri: https://www.github.com
+        #访问http://127.0.0.1:8087/csdn/1等价于 https://www.github.com/1
+        predicates:
+        - Path=/csdn
