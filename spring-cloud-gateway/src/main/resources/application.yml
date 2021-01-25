@@ -3,13 +3,108 @@ server:
 spring:
   application:
     name: spring-cloud-gateway
+  redis:
+    host: 172.17.6.85
+    port: 26379
+    database: 0
+    password: Cetjfy123-sz
   cloud:
     gateway:
+      #需要显式打开支持eruka，而且通过服务名访问其他服务是区分大小写，大小写要和注册中心一致
+      discovery:
+        locator:
+          enabled: true
       routes:
-      #id是定义的唯一id
       - id: proxy-1
         #代理的uri，注意这里不能代理百度，有可能百度做了限制，无法代理成功
         uri: https://www.github.com
-        #访问http://127.0.0.1:8087/csdn/1等价于 https://www.github.com/1
+        #通过配置增加过滤器
+        filters:
+          #RequestRateLimiter的限流过滤器
+          - name: RequestRateLimiter
+            args:
+              #用于限流的键的解析器的 Bean 对象的名字。它使用 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
+              key-resolver: '#{@hostAddrKeyResolver}'
+              #令牌桶每秒填充平均速率
+              redis-rate-limiter.replenishRate: 1
+              #令牌桶总容量
+              redis-rate-limiter.burstCapacity: 3
+          # PreserveHostHeader GatewayFilter Factory会保留原始请求的host头信息，并原封不动的转发出去，而不是被gateway的http客户端重置。
+          - PreserveHostHeader
+          #设置路径前缀,如果一个请求是/hello，通过下面路由，就会将请求修改为/mypath/hello。
+          - PrefixPath=/mypath
+          #请求中增加Header key为X-Request-Foo，value为bar
+          - AddRequestHeader=X-Request-Foo, Bar
+          #请求中增加查询参数 key为foo，value为bar
+          - AddRequestParameter=foo, ba
+          #响应中增加Header key为X-Request-Foo，value为bar
+          - AddResponseHeader=X-Response-Foo, Bar
+          #将名称为myCommandName的断路器使用在路由上,所有的过滤器都在包装在名为myCommandName的HystrixCommand中运行
+          #- Hystrix=myCommandName
+          #可以配置调用接口失败后的回调方法,以下的例子，gateway降级后就会将请求转发到http://localhost:9994
+          - name: Hystrix
+            args:
+              name: fetchIngredients
+              #重定向的uri是在代码中定义的uri
+              fallbackUri: forward:/fallback
+          #当请求降级后，FallbackHeadersfilter会将HystrixCommand的异常信息，通过Test-Header带给http://localhost:9994服务。
+          - name: FallbackHeaders
+            args:
+              executionExceptionTypeHeaderName: Test-Header
         predicates:
+          # 匹配路径
+          #访问http://127.0.0.1:8087/csdn/1等价于 https://www.github.com/1
         - Path=/csdn
+          #时间在2018-12-25T14:33:47.789+08:00之后才会匹配
+          #- After=2018-12-25T14:33:47.789+08:00
+          #时间在2016-12-25T14:33:47.789+08:00之前才会匹配
+          #- Before=2016-12-25T14:33:47.789+08:00
+          #时间在2016-12-25T14:33:47.789+08:00和2018-12-25T14:33:47.789+08:00之间才会匹配
+          #- Between=2016-12-25T14:33:47.789+08:00,2018-12-25T14:33:47.789+08:00
+          # cookie中有cookiename的键，且值符合cookievalue指定的正则才会匹配
+          #- Cookie=cookiename, cookievalue
+          # Header中有X-Request-Id的键，且值符合指定的正则才会匹配
+          #- Header=X-Request-Id, \d+
+          #访问的host是下面配置的才匹配
+          #- Host=**.somehost.org,**.anotherhost.org
+          #访问的方法是GET才会匹配
+        - Method=GET
+        #查询参数中含有name，且value符合正则才匹配，也可以不配置value，只配置查询参数字段名称
+        #- Query=name,\d+
+        #匹配客户端的ip地址
+        #- RemoteAddr=192.168.1.1/24
+        #这里定义了一个fallback1，可以重定向到http://localhost:9994
+      - id: ingredients-fallback
+        uri: http://localhost:9994
+        predicates:
+          - Path=/fallback1
+
+#设置Hystrix的全局超时信息
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:18088/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 这里用* 代表暴露所有端点只是为了观察效果，实际中按照需进行端点暴露
+        include: "*"
+  endpoint:
+    health:
+      # 详细信息显示给所有用户。
+      show-details: always
+  health:
+    status:
+      http-mapping:
+        # 自定义健康检查返回状态码对应的 http 状态码
+        FATAL:  503
