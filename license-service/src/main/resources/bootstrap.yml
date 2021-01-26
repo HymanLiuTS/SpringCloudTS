@@ -15,6 +15,10 @@ spring:
       enabled: true
 #label从git方式的配置服务器获取配置时用到，表示git的分支
       label: main
+    #使用消息总线获取配置更新
+    bus:
+      refresh:
+        enabled: true
     stream:
       bindings:
         greetingChannel:
@@ -26,7 +30,7 @@ spring:
     port: 5672
     username: guest
     password: guest
-
+    virtual-host: /
 
 eureka:
   instance:

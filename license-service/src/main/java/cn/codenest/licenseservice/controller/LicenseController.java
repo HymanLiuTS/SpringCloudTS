@@ -1,12 +1,11 @@
 package cn.codenest.licenseservice.controller;
 
-import brave.Span;
-
 import brave.Tracer;
 import cn.codenest.licenseservice.component.SimpleSourceBean;
 import cn.codenest.licenseservice.config.ServiceConfig;
 import cn.codenest.licenseservice.po.License;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +33,12 @@ public class LicenseController {
 
     @Autowired
     SimpleSourceBean simpleSourceBean;
+
+    @Value("${license.autocontrol}")
+    private String autoLicense;
+
+    @Value("${license.mannulcontrol}")
+    private String mannulLicense;
 
     @RequestMapping(value = "/{licenseid}/licenses", method = RequestMethod.GET)
     public License getLicense(@PathVariable String licenseid) {
